@@ -6,6 +6,7 @@ pipeline {
         DOCKER_IMAGE_TAG = 'latest'
         radio_image = 'abdullahkhabir/radio'
         music_host = 'http://whmsonic.radio.gov.pk:8068'
+        container_name = 'ak-container'
     }
 
     stages {
@@ -26,7 +27,9 @@ pipeline {
         stage('Run Docker image') {
             steps {
                 script {
-                    sh "docker run --name ak-container -p 80:8000 -e music_host=${music_host} -d ${radio_image}"
+                    sh "docker stop ${container_name} || true"
+                    sh "docker rm ${container_name} || true"
+                    sh "docker run --name ${container_name} -p 80:8000 -e music_host=${music_host} -d ${radio_image}"
                 }
             }
         }
