@@ -5,8 +5,9 @@ pipeline {
         stage('Check Tag Push') {
             when {
                 expression {
-                    echo "BRANCH_NAME: ${env.BRANCH_NAME}"
-                    return env.BRANCH_NAME?.startsWith('refs/tags/')
+                    def isTagPush = env.GIT_BRANCH?.startsWith('refs/tags/')
+                    echo "BRANCH_NAME: ${env.BRANCH_NAME}, GIT_BRANCH: ${env.GIT_BRANCH}, isTagPush: ${isTagPush}"
+                    return isTagPush
                 }
             }
             steps {
