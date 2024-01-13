@@ -5,7 +5,7 @@ pipeline {
         stage('Check Tag Push') {
             when {
                 expression {
-                    return env.BRANCH_NAME.startsWith('refs/tags/')
+                    return env.BRANCH_NAME != null && env.BRANCH_NAME.startsWith('refs/tags/')
                 }
             }
             steps {
