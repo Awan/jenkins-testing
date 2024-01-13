@@ -5,8 +5,8 @@ pipeline {
         stage('Check Tag Push') {
             when {
                 expression {
-                    def isTagPush = env.TAG_NAME != null
-                    echo "TAG_NAME: ${env.TAG_NAME}, isTagPush: ${isTagPush}"
+                    def isTagPush = env.CHANGE_ID != null
+                    echo "CHANGE_ID: ${env.CHANGE_ID}, isTagPush: ${isTagPush}"
                     return isTagPush
                 }
             }
