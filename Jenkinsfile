@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = 'ak'
         DOCKER_IMAGE_TAG = 'latest'
+        radio_image = 'abdullahkhabir/radio'
     }
 
     stages {
@@ -24,7 +25,7 @@ pipeline {
         stage('Run Docker image') {
             steps {
                 script {
-                    docker.image("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}").run("--name ak-container")
+                    docker.image("${radio_image}").run("--name ak-container -p 80:8000 -d")
                 }
             }
         }
