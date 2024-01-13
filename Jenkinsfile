@@ -25,7 +25,7 @@ pipeline {
         stage('Run Docker image') {
             steps {
                 script {
-                    docker.image("${radio_image}").run("--name", "ak-container", "-p", "80:8000", "-d")
+                    sh "docker run --name ak-container -p 80:8000 -d ${radio_image}"
                 }
             }
         }
