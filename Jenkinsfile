@@ -5,8 +5,9 @@ pipeline {
         stage('Check Tag Push') {
             when {
                 expression {
-                    def isTagPush = env.GIT_REF.startsWith('refs/tags/')
-                    echo "GIT_REF: ${env.GIT_REF}, isTagPush: ${isTagPush}"
+                    def gitRef = env.GIT_REF
+                    def isTagPush = gitRef != null && gitRef.startsWith('refs/tags/')
+                    echo "GIT_REF: ${gitRef}, isTagPush: ${isTagPush}"
                     return isTagPush
                 }
             }
