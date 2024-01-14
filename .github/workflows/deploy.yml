@@ -1,0 +1,21 @@
+name: Run Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Deploy Docker Image
+      run: |
+        docker stop ak-container || true
+        docker rm ak-container || true
+        docker run -d --name ak-container -e music_host='http://whmsonic.radio.gov.pk:8068' -p 80:8000 abdullahkhabir/radio:latest
+        docker ps
